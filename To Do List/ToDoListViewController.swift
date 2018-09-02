@@ -12,7 +12,7 @@ class ToDoListViewController: UITableViewController {
     
     //guardan la lista
     
-    let itemArray = ["Find Mike", "Buy Eggos"," Destory Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos"," Destory Demogorgon"]
     
 
     override func viewDidLoad() {
@@ -59,8 +59,59 @@ class ToDoListViewController: UITableViewController {
     }
     
     
+    //MARK - add nuevo Items
     
-    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        // para captar el nuevo item hacer la variable
+        
+        var textField = UITextField()
+        
+        
+        
+        // una alerta
+        let alert = UIAlertController(title: "Add New ToDoList Item", message: "", preferredStyle: .alert)
+        
+        // accion de la alerta se setea
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            // aqui sucede cuando presionas el boton agregar +
+           
+            self.itemArray.append(textField.text!)
+            
+            //refrescar la data
+            
+            self.tableView.reloadData()
+            
+            //print("success!")
+            
+
+            
+        }
+        // textfield en la alerta, hacer clik sobre el azul para insertar ese cierre
+        
+        alert.addTextField { (alertTextField) in
+            //se crea un placeholder
+            alertTextField.placeholder = "Crea tu nuevo item"
+           
+            
+            //se crea el que capta el item por medio de la alerta
+            
+            textField = alertTextField
+            
+            
+            
+            
+        }
+        
+        
+        alert.addAction(action)
+        
+        // controlador de vista que se quiere presentar y el controlador de vista se presenta a la alerta
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
     
     
     
