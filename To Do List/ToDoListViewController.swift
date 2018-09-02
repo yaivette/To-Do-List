@@ -13,10 +13,19 @@ class ToDoListViewController: UITableViewController {
     //guardan la lista
     
     var itemArray = ["Find Mike", "Buy Eggos"," Destory Demogorgon"]
+    //persistidor de datos para que guarde en el telefono y no memoria
+    let defaults = UserDefaults.standard
+    
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let items = UserDefaults.standard.array(forKey: "itemArray") as? [String]{
+            itemArray = items
+        }
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     //MARK - TableView Datasource Methods
@@ -67,8 +76,6 @@ class ToDoListViewController: UITableViewController {
         
         var textField = UITextField()
         
-        
-        
         // una alerta
         let alert = UIAlertController(title: "Add New ToDoList Item", message: "", preferredStyle: .alert)
         
@@ -78,6 +85,10 @@ class ToDoListViewController: UITableViewController {
             // aqui sucede cuando presionas el boton agregar +
            
             self.itemArray.append(textField.text!)
+            
+            // lineas del persistidor para que guarde en el backn, y agregar el self para decr q soms nostrs
+            
+            self.defaults.set(self.itemArray, forKey: "itemArray")
             
             //refrescar la data
             
